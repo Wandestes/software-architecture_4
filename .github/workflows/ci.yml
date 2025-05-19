@@ -26,14 +26,10 @@ jobs:
         uses: actions/checkout@v4
 
       # Крок 2: Запуск інтеграційних тестів за допомогою Docker Compose
-      # Команда така ж, яку ти використовував локально.
-      # --build: гарантує, що образи будуть зібрані з останніми змінами коду.
-      # --abort-on-container-exit: зупинить всі контейнери, якщо будь-який контейнер (включаючи test) завершиться.
-      # --exit-code-from test: результат цього кроку (і всього завдання) буде залежати від коду виходу контейнера test.
-      #                        Якщо тести успішні, `go test` поверне 0, і контейнер test завершиться з кодом 0.
+      # ВИПРАВЛЕНО: Використовуємо "docker compose" (з пробілом) замість "docker-compose" (з дефісом)
       - name: Run integration tests with Docker Compose
         run: |
-          docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up --build --abort-on-container-exit --exit-code-from test
+          docker compose -f docker-compose.yaml -f docker-compose.test.yaml up --build --abort-on-container-exit --exit-code-from test
 
       # (Опціонально) Крок 3: Якщо потрібні артефакти
       # Наприклад, якщо тести генерують звіти, їх можна завантажити.
